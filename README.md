@@ -1,3 +1,3 @@
 # Space-Game
 
-Just a simpple space game I've created 
+Just a simple space game I've created to practice OOP and Javascript
