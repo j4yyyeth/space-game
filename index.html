@@ -9,11 +9,30 @@
       height: 100vh;
       width: 100vw;
       display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      overflow-y: hidden;
+      overflow-x: hidden;
+    }
+
+    #game {
+      height: 100vh;
+      width: 100vw;
+      display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       overflow-y: hidden;
       overflow-x: hidden;
+    }
+
+    #game-details {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: rgb(227, 0, 0);
     }
     canvas {
       background-image: url('/space.png');
@@ -21,8 +40,15 @@
   </style>
 </head>
 <body>
-  <h3>Press Space to Start!</h3>
+  <div id="game-details">
+    <img src="keys.png" alt="keys">
+    <h2 id="score"></h2>
+  </div>
+  <div id="game">
+  <h1>Space Game</h1>
   <canvas id="gameCanvas" width="800" height="600"></canvas>
+  <h2>Press Space to Start!</h2>
+  </div>
   <script src="game.js"></script>
 </body>
 </html>

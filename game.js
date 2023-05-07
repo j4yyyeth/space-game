@@ -1,5 +1,6 @@
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
+let scoreTitle = document.getElementById('score');
 
 class Ship {
   constructor(x, y) {
@@ -20,6 +21,10 @@ class Ship {
       this.x -= 10;
     } else if (direction === 'right') {
       this.x += 10;
+    } else if (direction === 'up') {
+      this.y -= 10;
+    } else if (direction === 'down') {
+      this.y += 10;
     }
   }
 }
@@ -55,15 +60,17 @@ let score = 0;
 let gameRunning = false;
 let keys = {
   ArrowLeft: false,
-  ArrowRight: false
+  ArrowRight: false,
+  ArrowUp: false,
+  ArrowDown: false
 };
 
 function checkCollision(ship, meteor) {
   return (
-    ship.x < meteor.x + meteor.width &&
-    ship.x + ship.width > meteor.x &&
-    ship.y < meteor.y + meteor.height &&
-    ship.y + ship.height > meteor.y
+    ship.x + 10 < meteor.x + meteor.width - 10 &&
+    ship.x + ship.width - 10 > meteor.x + 10 &&
+    ship.y + 10 < meteor.y + meteor.height - 10 &&
+    ship.y + ship.height - 10 > meteor.y + 10
   );
 }
 
@@ -73,6 +80,12 @@ function handleShipMovement() {
     }
     if (keys.ArrowRight && ship.x < canvas.width - ship.width) {
       ship.move('right');
+    }
+    if (keys.ArrowUp && ship.y > 0) {
+      ship.move('up');
+    }
+    if (keys.ArrowDown && ship.y < canvas.height - ship.height) {
+      ship.move('down');
     }
 }
 
@@ -91,7 +104,7 @@ function gameLoop() {
 
     if (checkCollision(ship, meteor)) {
       gameRunning = false;
-      document.title = `Game Over | Score: ${Math.floor(score / 60)}`;
+      scoreTitle.innerText = `Game Over | Score: ${Math.floor(score / 60 * 3)}`;
     }
 
     if (meteor.y > canvas.height) {
@@ -105,7 +118,7 @@ function gameLoop() {
 
   score++;
   if (gameRunning) {
-    document.title = `Score: ${Math.floor(score / 60)}`;
+    scoreTitle.innerText = `Score: ${Math.floor(score / 60 * 3)}`;
   }
 
   requestAnimationFrame(gameLoop);
